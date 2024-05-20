@@ -50,3 +50,8 @@ jobs:
         IMAGE_TAG: latest
       run: |
         kubectl apply -f kubernetes/deployment.yaml
+        
+    - name: Rollback prev version
+      if: ${{ failure() }}
+      run: |
+        kubectl rollout undo deployment/demo-deployment        
