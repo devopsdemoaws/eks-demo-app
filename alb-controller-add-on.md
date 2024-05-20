@@ -1,5 +1,9 @@
 # How to setup alb add on
 
+```
+eksctl utils associate-iam-oidc-provider --cluster <your-cluster-name>  --region <region> --approve  
+```
+
 Download IAM policy
 
 ```
@@ -18,12 +22,13 @@ Create IAM Role
 
 ```
 eksctl create iamserviceaccount \
+  --region=<region> \
   --cluster=<your-cluster-name> \
   --namespace=kube-system \
-  --name=aws-load-balancer-controller \
+  --name=aws-load-balancer-controller-1 \
   --role-name AmazonEKSLoadBalancerControllerRole \
-  --attach-policy-arn=arn:aws:iam::<your-aws-account-id>:policy/AWSLoadBalancerControllerIAMPolicy \
-  --approve
+  --attach-policy-arn=arn:aws:iam::675303913885:policy/AWSLoadBalancerControllerIAMPolicy \
+  --approve    
 ```
 
 ## Deploy ALB controller
@@ -43,19 +48,18 @@ helm repo update eks
 Install
 
 ```
-helm install aws-load-balancer-controller eks/aws-load-balancer-controller \            
-  -n kube-system \
-  --set clusterName=<your-cluster-name> \
-  --set serviceAccount.create=false \
-  --set serviceAccount.name=aws-load-balancer-controller \
-  --set region=<region> \
-  --set vpcId=<your-vpc-id>
+helm install aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system \
+    --set clusterName=<your_cluster_name> \
+    --set serviceAccount.create=false \
+    --set region=<region> \
+    --set vpcId=<vpc-id> \
+    --set serviceAccount.name=aws-load-balancer-controller-1
 ```
 
 Verify that the deployments are running.
 
 ```
-kubectl get deployment -n kube-system aws-load-balancer-controller
+kubectl get deployment -n kube-system aws-load-balancer-controller-1
 ```
 
 
