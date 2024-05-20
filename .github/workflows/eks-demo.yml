@@ -33,12 +33,6 @@ jobs:
         env:
           AWS_REGION: ${{ secrets.AWS_REGION }}
 
-      - name: Assume IAM Role
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          role-to-assume: ${{ secrets.KUBERNETES_CLUSTER_ROLE_ARN }}
-          aws-region: ${{ secrets.AWS_REGION }}
-
       - name: Decode Kubeconfig
         run: echo "${{ secrets.KUBERNETES_CONFIG_BASE64 }}" | base64 -d > $HOME/.kube/config
 
