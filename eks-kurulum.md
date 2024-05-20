@@ -4,7 +4,7 @@
 ## Fargate kullanarak kurulum
 
 ```
-eksctl create cluster --name <CLUSTER_ADI> --region <REGION> --fargate
+eksctl create cluster --name <CLUSTER_ADI> --region <REGION>
 ```
 
 ## Clusterı silme
@@ -13,4 +13,15 @@ eksctl create cluster --name <CLUSTER_ADI> --region <REGION> --fargate
 eksctl delete cluster --name <CLUSTER_ADI> --region <REGION>
 ```
 
+## NodeGroup ekleme
 
+```
+eksctl create nodegroup \ 
+      --cluster=<your-eks-cluster-name> \ 
+      --region=<your-region-code> \ 
+      --name=<your-nodegroup-name> \ 
+      --node-type=<instance-type> \ 
+      --nodes=<desired-nodes> \
+      --nodes-min=<minimum-num-of-nodes> \
+      --nodes-max=<maximum-num-of-nodes> 
+```
