@@ -53,9 +53,9 @@ jobs:
         
     - name: Check pods
       run: |
-        kubectl rollout status deployment/eks-app-demo --timeout=120s
+        kubectl rollout status deployment/eks-app-demo --timeout=120s -n eks-app-demo
         
     - name: Rollback prev version
       if: ${{ failure() }}
       run: |
-        kubectl rollout undo deployment/eks-app-demo      
+        kubectl rollout undo deployment/eks-app-demo -n eks-app-demo   
