@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
                         text-align: center;
                     }
                     h1 {
-                        margin-top: 50;
+                        margin-top: 50px;
                     }
                     button {
                         margin: 10px;
@@ -32,13 +32,43 @@ router.get('/', (req, res) => {
                         height: auto;
                         margin-top: 20px;
                     }
+                    #countdown {
+                        font-size: 70px;
+                        color: white;
+                        margin-top: 90px;
+                    }
                 </style>
             </head>
             <body>
                 <div class="container">
                     <img src="/logos/aws.png" alt="AWS Logo">
-                    <h1 style="color: white; font-weight: bold;">AWS EKS DEMO</h1>
+                    <h1 style="color: white; font-weight: bold;">AWS EKS DEMO KALAN SURE</h1>
+                    <div id="countdown">90:00</div>
                 </div>
+                <script>
+                    function startCountdown(duration, display) {
+                        var timer = duration, minutes, seconds;
+                        setInterval(function () {
+                            minutes = parseInt(timer / 60, 10);
+                            seconds = parseInt(timer % 60, 10);
+
+                            minutes = minutes < 10 ? "0" + minutes : minutes;
+                            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                            display.textContent = minutes + ":" + seconds;
+
+                            if (--timer < 0) {
+                                timer = 0;
+                            }
+                        }, 1000);
+                    }
+
+                    window.onload = function () {
+                        var countdownDuration = 90 * 60; // 90 minutes in seconds
+                        var display = document.getElementById('countdown');
+                        startCountdown(countdownDuration, display);
+                    };
+                </script>
             </body>
         </html>
     `);
